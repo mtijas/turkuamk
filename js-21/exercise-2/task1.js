@@ -11,12 +11,6 @@ const isLeapYear = function(year) {
     return false;
 }
 
-// Shows result in a specific div as requested
-const showResult = function(text) {
-    let resultDiv = document.getElementById("task1-result-div");
-    resultDiv.innerHTML = "<p>" + text + "</p>";
-}
-
 const attachLeapYearFormSubmitHandler = function() {
     // Gets the submit button
     const task1SubmitBtn = document.getElementById("task1-submit-btn");
@@ -27,9 +21,10 @@ const attachLeapYearFormSubmitHandler = function() {
 
         year = document.getElementById("task1-input").value;
         if (isLeapYear(year)) {
-            showResult("Year " + year + " is a leap year");
+            showResult("Year " + year + " is a leap year", "task1-result-div");
         } else {
-            showResult("Year " + year + " is not a leap year");
+            showResult("Year " + year + " is not a leap year",
+                       "task1-result-div");
         }
     });
 }
