@@ -12,10 +12,7 @@ class Book {
     }
 
     compare(target) {
-        if (this.isbn === target.getIsbn()) {
-            return true;
-        }
-        return false;
+        return this.isbn === target.getIsbn();
     }
 
     toString() {
