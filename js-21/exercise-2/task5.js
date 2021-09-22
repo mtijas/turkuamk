@@ -1,3 +1,9 @@
+/**
+ * JavaScript 2021 autumn course @ TurkuAMK, exercise 2, task 5
+ *
+ * Author: Markus Ijäs
+ */
+
 class Book {
     isbn;
     name;

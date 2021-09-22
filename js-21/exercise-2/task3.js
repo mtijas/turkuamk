@@ -1,3 +1,9 @@
+/**
+ * JavaScript 2021 autumn course @ TurkuAMK, exercise 2, task 3
+ *
+ * Author: Markus Ijäs
+ */
+
 //Convert hours to hours and minutes (hh:mm)
 const convertToMinutesFormat = (hoursInHundredths) => {
     let parsedHours = parseFloat(hoursInHundredths.toString().replace(',','.'));

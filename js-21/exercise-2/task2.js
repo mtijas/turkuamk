@@ -1,3 +1,9 @@
+/**
+ * JavaScript 2021 autumn course @ TurkuAMK, exercise 2, task 2
+ *
+ * Author: Markus Ijäs
+ */
+
 const numArr = [6,4,2,5,9,7,5,7,2];
 
 // Naive check for number in array

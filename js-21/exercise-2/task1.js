@@ -1,3 +1,9 @@
+/**
+ * JavaScript 2021 autumn course @ TurkuAMK, exercise 2, task 1
+ *
+ * Author: Markus Ijäs
+ */
+
 // Checks if year is a leap year
 const isLeapYear = function(year) {
     if (year % 4 === 0) {

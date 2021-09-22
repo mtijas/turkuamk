@@ -1,3 +1,8 @@
+/**
+ * JavaScript 2021 autumn course @ TurkuAMK, exercise 2, task 6
+ *
+ * Author: Markus Ijäs
+ */
 
 /**
  * Precision rounding helper
