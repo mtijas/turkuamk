@@ -5,7 +5,7 @@
  */
 
 const buildRegisterNumber = (theLetters, theDigits) => {
-    const letterMatcher = RegExp("^([A-V]|[X-Z]){2,3}$");
+    const letterMatcher = RegExp("^[A-VX-Z]{2,3}$");
     const digitMatcher = RegExp("^[1-9][0-9]{0,2}$");
 
     if (!letterMatcher.test(theLetters)) {
