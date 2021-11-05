@@ -1,0 +1,60 @@
+<!-- This source code was given by the teacher -->
+
+<!DOCTYPE html>
+<html lang="en">
+ 
+  <head>
+    <title>Search a car</title>
+    <meta charset="UTF-8">
+    <script src="part3.js"></script>
+  </head>
+ 
+  <body> 
+    <h2>Search a car</h2>
+   
+    <form id="carform" action="#" novalidate>
+   
+      <p>
+        <label for="mailaddr">Email:
+          <input id="mailaddr" name="mailaddr" type="email" size="30" required />
+        </label>
+      </p>
+   
+      <p>
+        <label for="carcolor">Car color:
+          <select id="carcolor" name="carcolor">
+            <option value="" selected="selected">Select a color</option>
+            <option value="b">Blue</option>
+            <option value="r">Red</option>
+          </select>
+        </label>
+      </p>
+   
+      <p>
+        <label for="sunroof">
+          <input type="checkbox" id="sunroof" name="sunroof" value="yes" />Sunroof
+        </label>
+        <label for="ewindows"><input type="checkbox" id="ewindows" name="sunroof" value="yes" />Electronic win-dows</label>
+      </p>
+   
+      <p>
+        <label for="doors">Number of doors&nbsp;&nbsp;
+          <input type="radio" name="doors" id="door2" value="door2" class="radio" />Two
+          <input type="radio" name="doors" id="door4" value="door4" class="radio" />Four
+        </label>
+      </p>
+   
+      <p>
+        <label for="zipno">Zip number:
+          <input id="zipno" name="zipno" type="text" size="5" maxlength="5" />
+          <br/><br />
+        </label>
+      </p>
+   
+      <input type="submit" value="Send" /> &nbsp;<input type="reset" value="Clear" />
+   
+      <p id="validationinfo"></p>
+ 
+    </form>
+  </body>
+</html>
