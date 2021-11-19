@@ -1,5 +1,5 @@
 /**
- * TUAS JS-21 course Exercise 5 Part 3 JavaScript
+ * TUAS JS-21 course Exercise 5 Part 2 JavaScript
  * This is basically MVP, not a fully tested complete solution.
  */
 
