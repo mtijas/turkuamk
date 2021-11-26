@@ -9,3 +9,9 @@ desktop.ini
 # Mac OS X
 .DS_Store
 ._*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
