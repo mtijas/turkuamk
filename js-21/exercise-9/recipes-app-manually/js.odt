@@ -1,0 +1,82 @@
+<!-- Generator: GNU source-highlight 3.1.9
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">// .src/components/Ingredient.js</font></i>
+
+import React from <font color="#FF0000">"react"</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">export</font></b> <b><font color="#0000FF">default</font></b> Ingredient <font color="#990000">=</font> <font color="#990000">(</font><font color="#FF0000">{</font> amount<font color="#990000">,</font> measurement<font color="#990000">,</font> name <font color="#FF0000">}</font><font color="#990000">)</font> <font color="#990000">=&gt;</font> <font color="#FF0000">{</font>
+  <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>
+    <font color="#990000">&lt;</font>li<font color="#990000">&gt;</font>
+      <font color="#FF0000">{</font>amount<font color="#FF0000">}</font> <font color="#FF0000">{</font>measurement<font color="#FF0000">}</font> <font color="#FF0000">{</font>name<font color="#FF0000">}</font>
+    <font color="#990000">&lt;/</font>li<font color="#990000">&gt;</font>
+  <font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<i><font color="#9A1900">// .src/components/IngredientsList.js</font></i>
+
+import React from <font color="#FF0000">"react"</font><font color="#990000">;</font>
+import Ingredient from <font color="#FF0000">"./Ingredient"</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">export</font></b> <b><font color="#0000FF">default</font></b> IngredientsList <font color="#990000">=</font> <font color="#990000">(</font><font color="#FF0000">{</font> list <font color="#FF0000">}</font><font color="#990000">)</font> <font color="#990000">=&gt;</font> <font color="#FF0000">{</font>
+  <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>
+    <font color="#990000">&lt;</font>ul className<font color="#990000">=</font><font color="#FF0000">"ingredients"</font><font color="#990000">&gt;</font>
+      <font color="#FF0000">{</font>list<font color="#990000">.</font><b><font color="#000000">map</font></b><font color="#990000">((</font>ingredient<font color="#990000">,</font> i<font color="#990000">)</font> <font color="#990000">=&gt;</font> <font color="#990000">(</font>
+        <font color="#990000">&lt;</font>Ingredient key<font color="#990000">=</font><font color="#FF0000">{</font>i<font color="#FF0000">}</font> <font color="#FF0000">{</font><font color="#990000">...</font>ingredient<font color="#FF0000">}</font> <font color="#990000">/&gt;</font>
+      <font color="#990000">))</font><font color="#FF0000">}</font>
+    <font color="#990000">&lt;/</font>ul<font color="#990000">&gt;</font>
+  <font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<i><font color="#9A1900">// .src/components/Instructions.js</font></i>
+
+import React from <font color="#FF0000">"react"</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">export</font></b> <b><font color="#0000FF">default</font></b> Instructions <font color="#990000">=</font> <font color="#990000">(</font><font color="#FF0000">{</font> title<font color="#990000">,</font> steps <font color="#FF0000">}</font><font color="#990000">)</font> <font color="#990000">=&gt;</font> <font color="#FF0000">{</font>
+  <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>
+    <font color="#990000">&lt;</font>section className<font color="#990000">=</font><font color="#FF0000">"instructions"</font><font color="#990000">&gt;</font>
+      <font color="#990000">&lt;</font>h2<font color="#990000">&gt;</font><font color="#FF0000">{</font>title<font color="#FF0000">}</font><font color="#990000">&lt;/</font>h2<font color="#990000">&gt;</font>
+      <font color="#FF0000">{</font>steps<font color="#990000">.</font><b><font color="#000000">map</font></b><font color="#990000">((</font>s<font color="#990000">,</font> i<font color="#990000">)</font> <font color="#990000">=&gt;</font> <font color="#990000">(</font>
+        <font color="#990000">&lt;</font>p key<font color="#990000">=</font><font color="#FF0000">{</font>i<font color="#FF0000">}</font><font color="#990000">&gt;</font><font color="#FF0000">{</font>s<font color="#FF0000">}</font><font color="#990000">&lt;/</font>p<font color="#990000">&gt;</font>
+      <font color="#990000">))</font><font color="#FF0000">}</font>
+    <font color="#990000">&lt;/</font>section<font color="#990000">&gt;</font>
+  <font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<i><font color="#9A1900">// .src/components/Menu.js</font></i>
+
+import React from <font color="#FF0000">"react"</font><font color="#990000">;</font>
+import Recipe from <font color="#FF0000">"./Recipe"</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">const</font></b> Menu <font color="#990000">=</font> <font color="#990000">(</font><font color="#FF0000">{</font> recipes <font color="#FF0000">}</font><font color="#990000">)</font> <font color="#990000">=&gt;</font> <font color="#FF0000">{</font>
+  <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>
+    <font color="#990000">&lt;</font>article<font color="#990000">&gt;</font>
+      <font color="#990000">&lt;</font>header<font color="#990000">&gt;</font>
+        <font color="#990000">&lt;</font>h1<font color="#990000">&gt;</font>Delicious Recipes<font color="#990000">&lt;/</font>h1<font color="#990000">&gt;</font>
+      <font color="#990000">&lt;/</font>header<font color="#990000">&gt;</font>
+      <font color="#990000">&lt;</font>div className<font color="#990000">=</font><font color="#FF0000">"recipes"</font><font color="#990000">&gt;</font>
+        <font color="#FF0000">{</font>recipes<font color="#990000">.</font><b><font color="#000000">map</font></b><font color="#990000">((</font>recipe<font color="#990000">,</font> i<font color="#990000">)</font> <font color="#990000">=&gt;</font> <font color="#990000">(</font>
+          <font color="#990000">&lt;</font>Recipe key<font color="#990000">=</font><font color="#FF0000">{</font>i<font color="#FF0000">}</font> <font color="#FF0000">{</font><font color="#990000">...</font>recipe<font color="#FF0000">}</font> <font color="#990000">/&gt;</font>
+        <font color="#990000">))</font><font color="#FF0000">}</font>
+      <font color="#990000">&lt;/</font>div<font color="#990000">&gt;</font>
+    <font color="#990000">&lt;/</font>article<font color="#990000">&gt;</font>
+  <font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+<b><font color="#0000FF">export</font></b> <b><font color="#0000FF">default</font></b> Menu<font color="#990000">;</font>
+<i><font color="#9A1900">// .src/components/Recipe.js</font></i>
+
+import React from <font color="#FF0000">"react"</font><font color="#990000">;</font>
+import IngredientsList from <font color="#FF0000">"./IngredientsList"</font><font color="#990000">;</font>
+import Instructions from <font color="#FF0000">"./Instructions"</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">const</font></b> Recipe <font color="#990000">=</font> <font color="#990000">(</font><font color="#FF0000">{</font> name<font color="#990000">,</font> ingredients<font color="#990000">,</font> steps <font color="#FF0000">}</font><font color="#990000">)</font> <font color="#990000">=&gt;</font> <font color="#FF0000">{</font>
+  <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>
+    <font color="#990000">&lt;</font>section id<font color="#990000">=</font><font color="#FF0000">{</font>name<font color="#990000">.</font><b><font color="#000000">toLowerCase</font></b><font color="#990000">().</font><b><font color="#000000">replace</font></b><font color="#990000">(</font><font color="#FF6600">/ /g</font><font color="#990000">,</font> <font color="#FF0000">"-"</font><font color="#990000">)</font><font color="#FF0000">}</font><font color="#990000">&gt;</font>
+      <font color="#990000">&lt;</font>h1<font color="#990000">&gt;</font><font color="#FF0000">{</font>name<font color="#FF0000">}</font><font color="#990000">&lt;/</font>h1<font color="#990000">&gt;</font>
+      <font color="#990000">&lt;</font>IngredientsList list<font color="#990000">=</font><font color="#FF0000">{</font>ingredients<font color="#FF0000">}</font> <font color="#990000">/&gt;</font>
+      <font color="#990000">&lt;</font>Instructions title<font color="#990000">=</font><font color="#FF0000">"Cooking Instructions"</font> steps<font color="#990000">=</font><font color="#FF0000">{</font>steps<font color="#FF0000">}</font> <font color="#990000">/&gt;</font>
+    <font color="#990000">&lt;/</font>section<font color="#990000">&gt;</font>
+  <font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+<b><font color="#0000FF">export</font></b> <b><font color="#0000FF">default</font></b> Recipe<font color="#990000">;</font>
+</tt></pre>
