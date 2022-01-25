@@ -1,0 +1,21 @@
+My cracked password is: markus3435779
+
+ 
+
+I extracted my hash from the csv by hand to the hash.txt file and ran: 
+hashcat -O --potfile-disable -m 1000 -a 3 -w 4 hash.txt markus?d?d?d?d?d?d?d
+
+ 
+
+Hardware:
+OpenCL API (OpenCL 1.2 CUDA 11.2.162) - Platform #1 [NVIDIA Corporation]
+========================================================================
+* Device #1: GeForce GTX 970, 3520/4039 MB (1009 MB allocatable), 13MCU
+
+Speed.#1.........: 88848.4 kH/s (0.63ms) @ Accel:64 Loops:1 Thr:1024 Vec:8
+ 
+
+Simple hyperfine benchmark:
+Benchmark #1: hashcat -O --potfile-disable -m 1000 -a 3 -w 4 hash.txt markus?d?d?d?d?d?d?d
+  Time (mean ± s):      1.905 s ±  0.020 s    [User: 695.3 ms, System: 380.9 ms]
+  Range (min ... max):    1.889 s ...  1.940 s    10 runs
