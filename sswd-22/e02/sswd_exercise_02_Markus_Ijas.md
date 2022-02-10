@@ -1,9 +1,10 @@
 ---
 title: "Server-Side Web Development - Exercise 02"
 author: Markus Ijäs
-date: 2022
+date: 10.02.2022
 geometry: margin=2cm
 output: pdf_document
+block-headings: true
 ---
 
 # Server-Side Web Development - Exercise 02
