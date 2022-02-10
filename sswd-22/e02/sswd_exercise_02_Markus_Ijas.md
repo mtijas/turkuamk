@@ -153,7 +153,7 @@ Require the module and test that it functions as expected by calling its methods
 
 **Answers**
 
-_evaluator.js:_
+**evaluator.js:**
 
 ```js
 let evaluationScale = null;
@@ -181,7 +181,7 @@ exports.getGrade = function (points) {
 };
 ```
 
-_index.js:_
+**index.js:**
 
 ```js
 const evaluator = require("./evaluator");
@@ -203,7 +203,7 @@ console.log("Points 101, scale set. Got grade: " + evaluator.getGrade(101));
 console.log("Points 19, scale set. Got grade: " + evaluator.getGrade(19));
 ```
 
-_package.json:_
+**package.json:**
 
 ```js
 {
@@ -238,7 +238,7 @@ Points 19, scale set. Got grade: 0
 
 _Program the previous module “evaluator” again. This time, implement it as a ES6 module. Also the module that imports it should be an ES6 module. Test that everything works._
 
-_evaluator.js:_
+**evaluator.js:**
 
 ```js
 let evaluationScale = null;
@@ -268,7 +268,7 @@ function getGrade(points) {
 export { setEvaluationScale, getGrade };
 ```
 
-_index.js:_
+**index.js:**
 
 ```js
 import { setEvaluationScale, getGrade } from "./evaluator.js";
@@ -290,7 +290,7 @@ console.log("Points 101, scale set. Got grade: " + evaluator.getGrade(101));
 console.log("Points 19, scale set. Got grade: " + evaluator.getGrade(19));
 ```
 
-_package.json:_
+**package.json:**
 
 ```js
 {
@@ -326,7 +326,77 @@ Points 19, scale set. Got grade: 0
 
 #### a. Program a Node.js module with CommonJS format that prints the contents of these variables to the console.
 
+_This time with no npm packaging_
+
+**a_module.js:**
+
+```js
+exports.printVars = function () {
+  console.log("Contents of __dirname: " + __dirname);
+  console.log("Contents of __filename: " + __filename);
+};
+```
+
+**a_index.js:**
+
+```js
+const a_module = require("./a_module");
+
+console.log("Printing vars from A module (CommonJS)");
+a_module.printVars();
+```
+
+**Run:**
+
+```sh
+ ~/projects/…/t5  main  ✎  ?  $  node a_index.js
+Printing vars from A module (CommonJS)
+Contents of __dirname: /home/markus/projects/turkuamk/sswd-22/e02/t5
+Contents of __filename: /home/markus/projects/turkuamk/sswd-22/e02/t5/a_module.js
+```
+
 #### b. Program a Node.js module with ES6 format that creates these variables and prints their contents of to the console.
+
+_This time with no npm packaging_
+
+**b_module.mjs:**
+
+```js
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+/**
+ * Solution from kindacode.com, thanks to A. Goodman.
+ * https://www.kindacode.com/article/node-js-using-__dirname-and-__filename-with-es-modules/
+ */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+function printVars() {
+  console.log("Contents of __dirname: " + __dirname);
+  console.log("Contents of __filename: " + __filename);
+}
+
+export { printVars };
+```
+
+**b_index.mjs:**
+
+```js
+import { printVars } from "./b_module.mjs";
+
+console.log("Printing vars from B module (ES6)");
+printVars();
+```
+
+**Run:**
+
+```sh
+ ~/projects/…/t5  main  ✎  ?  $  node b_index.mjs
+Printing vars from B module (ES6)
+Contents of __dirname: /home/markus/projects/turkuamk/sswd-22/e02/t5
+Contents of __filename: /home/markus/projects/turkuamk/sswd-22/e02/t5/b_module.mjs
+```
 
 ### 6. Node.js core modules (4 \* 0.25 = 1 point)
 
