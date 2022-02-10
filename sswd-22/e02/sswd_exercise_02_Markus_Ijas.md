@@ -223,9 +223,9 @@ _package.json:_
 **And simple run with `npm start`:**
 
 ```sh
- ~/projects/…/t4  main  ✎  ?  $  npm start
+ ~/projects/…/t3  main  ✎  ?  $  npm start
 
-> t4@1.0.0 start
+> t3@1.0.0 start
 > node index.js
 
 Points 50, no scale set. Got grade: There is no evaluation scale defined.
@@ -237,6 +237,90 @@ Points 19, scale set. Got grade: 0
 ### 4. Program a Node.js module with ES6 format (1 point)
 
 _Program the previous module “evaluator” again. This time, implement it as a ES6 module. Also the module that imports it should be an ES6 module. Test that everything works._
+
+_evaluator.js:_
+
+```js
+let evaluationScale = null;
+
+function setEvaluationScale(scale) {
+  if (Array.isArray(scale)) {
+    evaluationScale = scale;
+  }
+}
+
+function getGrade(points) {
+  if (!Array.isArray(evaluationScale)) {
+    return "There is no evaluation scale defined.";
+  }
+
+  grade = 0;
+
+  evaluationScale.forEach((element) => {
+    if (points >= element.points && grade < element.grade) {
+      grade = element.grade;
+    }
+  });
+
+  return grade;
+}
+
+export { setEvaluationScale, getGrade };
+```
+
+_index.js:_
+
+```js
+import { setEvaluationScale, getGrade } from "./evaluator.js";
+
+let scale = [
+  { grade: 1, points: 20 },
+  { grade: 2, points: 35 },
+  { grade: 3, points: 50 },
+  { grade: 4, points: 65 },
+  { grade: 5, points: 80 },
+];
+
+console.log("Points 50, no scale set. Got grade: " + evaluator.getGrade(50));
+
+evaluator.setEvaluationScale(scale);
+
+console.log("Points 50, scale set. Got grade: " + evaluator.getGrade(50));
+console.log("Points 101, scale set. Got grade: " + evaluator.getGrade(101));
+console.log("Points 19, scale set. Got grade: " + evaluator.getGrade(19));
+```
+
+_package.json:_
+
+```js
+{
+  "name": "t4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Markus Ijäs",
+  "license": "MIT"
+}
+```
+
+**And simple run with `npm start`:**
+
+```sh
+ ~/projects/…/t4  main  2✎  ?  $  npm start
+
+> t4@1.0.0 start
+> node index.js
+
+Points 50, no scale set. Got grade: There is no evaluation scale defined.
+Points 50, scale set. Got grade: 3
+Points 101, scale set. Got grade: 5
+Points 19, scale set. Got grade: 0
+```
 
 ### 5. Module variables `**dirname` and `**filename`. (1 point)
 
