@@ -1,15 +1,11 @@
 ---
 title: "Server-Side Web Development - Exercise 02"
-author: Markus Ijäs
+author: "Student: Markus Ijäs"
 date: 10.02.2022
 geometry: margin=2cm
 output: pdf_document
 block-headings: true
 ---
-
-# Server-Side Web Development - Exercise 02
-
-_Student: Markus Ijäs_
 
 Help to complete the tasks of this exercise can be found from the chapter 3 ”Creating a Node.js Module” of our course book “Get Programming with Node.js” by Jonathan Wexler and from the chapter “Exploring Node.js Modules” of the supplementary course book “Node.js Web Development” by David Herron. The aims of this exercise are 1) to learn to understand and to use Node.js modules and 2) to give the skills needed to work with NPM package manager.
 
