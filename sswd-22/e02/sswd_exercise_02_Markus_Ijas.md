@@ -1,4 +1,12 @@
-# Server-Side Web Development - Exercise 01
+---
+title: "Server-Side Web Development - Exercise 02"
+author: Markus Ijäs
+date: 2022
+geometry: margin=2cm
+output: pdf_document
+---
+
+# Server-Side Web Development - Exercise 02
 
 _Student: Markus Ijäs_
 
@@ -223,7 +231,7 @@ console.log("Points 19, scale set. Got grade: " + evaluator.getGrade(19));
 **And simple run with `npm start`:**
 
 ```sh
- ~/projects/…/t3  main  ✎  ?  $  npm start
+$  npm start
 
 > t3@1.0.0 start
 > node index.js
@@ -311,7 +319,7 @@ console.log("Points 19, scale set. Got grade: " + evaluator.getGrade(19));
 **And simple run with `npm start`:**
 
 ```sh
- ~/projects/…/t4  main  2✎  ?  $  npm start
+$  npm start
 
 > t4@1.0.0 start
 > node index.js
@@ -349,7 +357,7 @@ a_module.printVars();
 **Run:**
 
 ```sh
- ~/projects/…/t5  main  ✎  ?  $  node a_index.js
+$  node a_index.js
 Printing vars from A module (CommonJS)
 Contents of __dirname: /home/markus/projects/turkuamk/sswd-22/e02/t5
 Contents of __filename: /home/markus/projects/turkuamk/sswd-22/e02/t5/a_module.js
@@ -367,7 +375,7 @@ import { dirname } from "path";
 
 /**
  * Solution from kindacode.com, thanks to A. Goodman.
- * https://www.kindacode.com/article/node-js-using-__dirname-and-__filename-with-es-modules/
+ * www.kindacode.com/article/node-js-using-__dirname-and-__filename-with-es-modules/
  */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -392,7 +400,7 @@ printVars();
 **Run:**
 
 ```sh
- ~/projects/…/t5  main  ✎  ?  $  node b_index.mjs
+$  node b_index.mjs
 Printing vars from B module (ES6)
 Contents of __dirname: /home/markus/projects/turkuamk/sswd-22/e02/t5
 Contents of __filename: /home/markus/projects/turkuamk/sswd-22/e02/t5/b_module.mjs
@@ -406,6 +414,14 @@ _Visit the address https://nodejs.org/api/index.html. Answer the following quest
 
 ##### b. What is that site?
 
+Node.js documentation.
+
 ##### c. Check the link About this documentation. What do you find there?
 
+- Instructions on how to contribute to node.js.
+- Stability index for documentation.
+- Stability overview of different node.js modules.
+
 ##### d. Check the link Path. What do you find there?
+
+Documentation for the Path module.
