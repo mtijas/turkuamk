@@ -172,7 +172,7 @@ exports.getGrade = function (points) {
   grade = 0;
 
   evaluationScale.forEach((element) => {
-    if (points >= element.points) {
+    if (points >= element.points && grade < element.grade) {
       grade = element.grade;
     }
   });
