@@ -15,3 +15,5 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Node modules are not needed for this repo
+node_modules
