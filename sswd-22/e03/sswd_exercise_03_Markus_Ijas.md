@@ -1,7 +1,7 @@
 ---
 title: "Server-Side Web Development - Exercise 03"
 author: "Student: Markus Ijäs"
-date: 12.2.2022
+date: 17.2.2022
 geometry: margin=2cm
 output: pdf_document
 block-headings: true
@@ -151,7 +151,7 @@ Package json:
 
 ## a. Create a server that serves (static) webpages from a folder called views. Use routes. (0,5 points)
 
-Here we go:
+Here we go *(index.js)*:
 ```js
 import * as http from "http";
 import { StatusCodes } from "http-status-codes";
@@ -208,6 +208,86 @@ Basically anything sent to the user that's not source code, and that is not chan
 
 ## b. Create a web server that serves different kinds of static assets from subfolders of the folder called public. Use routes. (1 point)
 
+*Package json is the same as in task 4.*
+
+### index.js
+```js
+import * as http from "http";
+import { StatusCodes } from "http-status-codes";
+import * as fs from "fs";
+import { extname } from "path";
+
+const port = 3000;
+const allowedContentTypes = {
+  ".html": "text/html",
+  ".js": "text/javascript",
+  ".css": "text/css",
+};
+
+const respondWithError = (code, message, response) => {
+  response.writeHead(code, {
+    "Content-Type": "text/html",
+  });
+  response.write(`<h1>${message}</h1>`);
+  response.end();
+};
+
+const getContentType = (filePath) => {
+  let extension = extname(filePath);
+  if (allowedContentTypes[extension]) {
+    return allowedContentTypes[extension];
+  }
+  return "text/plain";
+};
+
+const respondWithFile = (filePath, response) => {
+  if (!fs.existsSync(filePath)) {
+    respondWithError(StatusCodes.NOT_FOUND, "File not found", response);
+    return;
+  }
+
+  fs.readFile(filePath, (error, data) => {
+    if (error) {
+      console.log(error);
+      respondWithError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        "Error reading file",
+        response
+      );
+      return;
+    }
+
+    response.writeHead(StatusCodes.OK, {
+      "Content-Type": getContentType(filePath),
+    });
+    response.write(data);
+    response.end();
+  });
+};
+
+const app = http.createServer((request, response) => {
+  console.log(`Request URL: ${request.url}`);
+  respondWithFile(`./public${request.url}`, response);
+});
+
+app.listen(port);
+
+console.log(`The server has started and listens on port ${port}`);
+```
+
+### File tree
+```sh
+$  tree public/
+public/
+├── css
+│   └── styles.css
+├── index.html
+└── js
+    └── scripts.js
+
+2 directories, 3 files
+```
+
 ## c. Give reasons to concentrate the static assets under the folder public. (0,5 points)
 
 Concentrating static assets under a single folder allows us to:
@@ -229,9 +309,219 @@ To basically let the user know that something went wrong. We should also use pro
 
 ## a. Move the routes of the web server you created in the previous task into a separate module. (1 point)
 
-*You can search help from the code listings in chapter 6.*
+*Public folder is the same as in 5b with added index.html file for testing FileResponder.*
+
+### index.js
+
+Building index.js this way allows us to inject handlers to the router runtime, and decouples handler logic from routing.
+
+```js
+import * as http from "http";
+import Router from "./router.js";
+import FileResponder from "./file-responder.js";
+import DynamicResponder from "./dynamic-responder.js";
+
+const router = new Router();
+const fileResponder = new FileResponder();
+const dynamicResponder = new DynamicResponder();
+
+const port = 3000;
+const routingConfig = {
+  GET: {
+    "/": dynamicResponder,
+    "/articles": dynamicResponder,
+    "/articles/*": dynamicResponder,
+    "/*": fileResponder,
+  },
+};
+
+router.setRouteHandlers(routingConfig);
+
+const app = http.createServer((request, response) => {
+  console.log(`Request URL: ${request.url}`);
+  router.handle(request, response);
+});
+
+app.listen(port);
+
+console.log(`The server has started and listens on port ${port}`);
+```
+
+### router.js
+
+Generic router with callbacks to injected handlers.
+
+```js
+import { StatusCodes } from "http-status-codes";
+
+export default class Router {
+  routeHandlers = {};
+
+  /**
+   * Set route handling rules.
+   *
+   * Rule may have generic regexp. * represents wild card (will be changed
+   * to `[\w\./]*` eventually).
+   *
+   * Expects newRouteHandlers in format
+   * {
+   *   method: {
+   *     rule: handler,
+   *   }
+   * }
+   * @param {dictionary of dictionaries} newRouteHandlers
+   */
+  setRouteHandlers(newRouteHandlers) {
+    this.routeHandlers = newRouteHandlers;
+  }
+
+  /**
+   * Get proper handler for provided url
+   *
+   * @param {object} methodHandlers
+   * @param {string} url
+   * @returns handler object or null if not found
+   */
+  getProperHandler(methodHandlers, url) {
+    for (const [key, handler] of Object.entries(methodHandlers)) {
+      //console.log(key);
+      let preparedRE = key.replace("*", "[\\w\\./]*");
+      let re = new RegExp(`^${preparedRE}$`, "i");
+      //console.log(re);
+      //console.log(re.test(url));
+      if (re.test(url)) {
+        return handler;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Routes requests to specific handlers based on routeHandlers dictionary.
+   *
+   * Expects routeHandlers to be in format:
+   * {
+   *   "get": {
+   *     "/": handler_callback,
+   *   },
+   *   "post": {
+   *     "/target": post_handler,
+   *   }
+   * }
+   * @param {object} request
+   * @param {object} response
+   */
+  handle(request, response) {
+    if (!this.routeHandlers[request.method]) {
+      response.writeHead(StatusCodes.INTERNAL_SERVER_ERROR);
+      response.end("Method handlers not found");
+      return;
+    }
+
+    let handler = this.getProperHandler(
+      this.routeHandlers[request.method],
+      request.url
+    );
+
+    if (handler !== null) {
+      handler.handle(request, response);
+    } else {
+      response.writeHead(StatusCodes.INTERNAL_SERVER_ERROR);
+      response.end("Route handlers not found");
+    }
+  }
+}
+```
+
+### file-responder.js
+
+A handler for serving files from ./public subfolder.
+
+```js
+import * as fs from "fs";
+import { extname } from "path";
+import { StatusCodes } from "http-status-codes";
+
+export default class FileResponder {
+  contentTypesDefs = {
+    ".html": { "Content-Type": "text/html" },
+    ".js": { "Content-Type": "text/javascript" },
+    ".css": { "Content-Type": "text/css" },
+  };
+
+  /**
+   * Get content type object for file path / url.
+   *
+   * @param {string} filePath
+   * @returns content type object, defaults to text/plain
+   */
+  getContentType(filePath) {
+    let extension = extname(filePath);
+    if (this.contentTypesDefs[extension]) {
+      return this.contentTypesDefs[extension];
+    }
+    return { "Content-Type": "text/plain" };
+  }
+
+  /**
+   * Responds with file from file system under ./public subfolder.
+   * Responds 404 if file not found, 500 if file could not be read.
+   *
+   * @param {object} request
+   * @param {object} response
+   * @returns null on error
+   */
+  handle(request, response) {
+    let filePath = `./public${request.url}`;
+
+    if (!fs.existsSync(filePath)) {
+      response.writeHead(StatusCodes.INTERNAL_SERVER_ERROR);
+      response.end("File not found");
+      return;
+    }
+
+    fs.readFile(filePath, (error, data) => {
+      if (error) {
+        console.log(error);
+        response.writeHead(StatusCodes.INTERNAL_SERVER_ERROR);
+        response.end("Error reading file");
+        return;
+      }
+
+      response.writeHead(StatusCodes.OK, this.getContentType(filePath));
+      response.end(data);
+    });
+  }
+}
+```
+
+### dynamic-responder.js
+
+Demonstration of dynamic request handler. This could be anything, a REST API handler for example.
+
+```js
+import { StatusCodes } from "http-status-codes";
+
+export default class DynamicResponder {
+  /**
+   * Responds with hard-coded page info for demonstration purposes
+   *
+   * @param {object} request
+   * @param {object} response
+   * @returns null on error
+   */
+  handle(request, response) {
+    response.writeHead(StatusCodes.OK, { "Content-Type": "text/html" });
+    response.end(`<h1>Dynamic Responder</h1><p>Got url: ${request.url}</p>`);
+  }
+}
+```
+
+### Example run in screenshot below
+
+![Screenshot_20220217_195338.png](screenshots/Screenshot_20220217_195338.png)
 
 ## b. Make certain that you are serving at least one web page that is not in the listings. (1 point)
 
-
+Didn't know what this meant. I still assume the 7a task completes this :D
 
