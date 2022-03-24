@@ -1,0 +1,19 @@
+{
+  "name": "sswd-e07",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "author": "Markus Ijäs",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "ejs": "^3.1.6",
+    "mongoose": "^6.2.8",
+    "nodemon": "^2.0.15",
+    "express-ejs-layouts": "^2.5.1"
+  }
+}
